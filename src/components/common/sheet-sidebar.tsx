@@ -1,9 +1,4 @@
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Home, Image, LogOut, MenuIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -68,19 +63,18 @@ const Sidebar = () => {
             ))}
           </nav>
         </div>
-        <SheetClose asChild>
-          <AlertDialogComponent
-            title="¿Cerrar cessión?"
-            description={`¿Estás seguro de que deseas cerrar sesión?`}
-            onConfirm={handleLogOut}
-            trigger={
-              <Button className="mt-auto flex items-center gap-2 justify-center">
-                <LogOut className="w-5 h-5" />
-                Cerrar Sesión
-              </Button>
-            }
-          />
-        </SheetClose>
+
+        <AlertDialogComponent
+          title="¿Cerrar cessión?"
+          description={`¿Estás seguro de que deseas cerrar sesión?`}
+          onConfirm={handleLogOut}
+          trigger={
+            <Button className="mt-auto flex items-center gap-2 justify-center">
+              <LogOut className="w-5 h-5" />
+              Cerrar Sesión
+            </Button>
+          }
+        />
       </SheetContent>
     </Sheet>
   );
