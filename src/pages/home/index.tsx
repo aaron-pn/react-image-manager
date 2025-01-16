@@ -3,6 +3,7 @@ import { useGetPhotosQuery } from '@/store/services/api';
 import CardComponent from '@/components/custom/card-component';
 import SkeletonCard from '@/components/custom//skeleton-card-component';
 import { Images } from '@/types';
+import InfoComponent from '@/components/custom/info-component';
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
@@ -13,7 +14,6 @@ const HomePage = () => {
     { page, limit: 10 },
     { skip: !hasMore }
   );
-
   useEffect(() => {
     if (data?.length === 0) {
       setHasMore(false);
@@ -29,23 +29,29 @@ const HomePage = () => {
       },
       { threshold: 1 }
     );
-
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+    const currentLoader = loaderRef.current;
+    if (currentLoader) {
+      observer.observe(currentLoader);
     }
 
     return () => {
-      if (loaderRef.current) {
-        observer.unobserve(loaderRef.current);
+      if (currentLoader) {
+        observer.disconnect();
       }
     };
-  }, [hasMore, isFetching]);
+  }, [loaderRef, hasMore, isFetching]);
 
-  if (isError)
-    return <p className="text-center text-red-500">Error al cargar imágenes</p>;
-
+  if (isError) {
+    return (
+      <InfoComponent
+        labelButton="Volver"
+        title="Parece que hubo un error al cargar la imagen"
+        colorTitle="text-red-600"
+      />
+    );
+  }
   return (
-    <div className="flex flex-col h-screen w-full px-4 sm:px-8 md:px-16">
+    <div className="flex flex-col h-screen w-full px-4 sm:px-8 md:px-16 py-2">
       <h1 className="text-3xl font-bold text-center my-8">
         Galería de Imágenes
       </h1>
@@ -58,18 +64,13 @@ const HomePage = () => {
           <CardComponent key={id} id={id} title={author} image={download_url} />
         ))}
       </div>
-      <div ref={loaderRef} className="flex justify-center items-center h-20">
+      <div ref={loaderRef} className="flex justify-center items-center pt-4">
         {isFetching && hasMore && (
-          <p className="text-center text-gray-500 animate-pulse">
+          <p className="text-center text-gray-500 animate-pulse pt-4">
             Cargando más imágenes...
           </p>
         )}
       </div>
-      {!hasMore && (
-        <p className="text-center mt-4 text-gray-500">
-          No hay más imágenes por cargar.
-        </p>
-      )}
     </div>
   );
 };

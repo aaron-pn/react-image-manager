@@ -2,11 +2,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { RootState } from '@/store';
-import { addFavorite, removeFavorite } from '@/store/slices/favoriteSlices';
-import { Star } from 'lucide-react';
+import { Bookmark } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AlertDialogComponent from './alert-dialog-component';
+import { removeImage, saveImage } from '@/store/slices/savedSlices';
 
 type CardComponentProps = {
   title: string;
@@ -14,31 +14,31 @@ type CardComponentProps = {
   id: string;
 };
 
-const CardComponent = ({ title, image, id }: CardComponentProps) => {
+const CardComponent: React.FC<CardComponentProps> = ({ title, image, id }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const favorites = useSelector(
-    (state: RootState) => state.favorites.favorites
+  const savedImages = useSelector(
+    (state: RootState) => state.savedImages.saved
   );
 
-  const isFavorite = favorites.some((fav) => fav.id === id);
+  const isSaved = savedImages.some((img) => img.id === id);
 
-  const handleAddFavorite = () => {
-    dispatch(addFavorite({ id, title, image }));
+  const handleSave = () => {
+    dispatch(saveImage({ id, title, image }));
     toast({
-      title: 'Favorito agregado',
-      description: `Una imagen de ${title} ha sido agregada a tus favoritos.`,
+      title: 'Imagen guardada',
+      description: 'La imagen ha sido guardada exitosamente.',
       variant: 'success',
     });
   };
 
-  const handleRemoveFavorite = () => {
-    dispatch(removeFavorite(id));
+  const handleRemove = () => {
+    dispatch(removeImage(id));
     toast({
-      title: 'Favorito eliminado',
-      description: `Una imagen de ${title} ha sido eliminada de tus favoritos.`,
+      title: 'Imagen eliminada',
+      description: 'La imagen ha sido eliminada de tus guardados.',
       variant: 'destructive',
     });
   };
@@ -50,20 +50,29 @@ const CardComponent = ({ title, image, id }: CardComponentProps) => {
           {title}
         </CardTitle>
         <div className="">
-          {isFavorite ? (
+          {isSaved ? (
             <AlertDialogComponent
               title="¿Eliminar esta imagen?"
-              description={`¿Estás seguro de que deseas eliminar la imagen de "${title}" de tus favoritos?`}
-              onConfirm={handleRemoveFavorite}
+              description={`¿Estás seguro de que deseas eliminar la imagen de "${title}" de tus guardados?`}
+              onConfirm={handleRemove}
               trigger={
-                <Button variant="ghost" size="sm">
-                  <Star className="w-5 h-5 text-yellow-400" />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="hover:animate-pulse"
+                >
+                  <Bookmark className="w-7 h-7 text-green-400 " />
                 </Button>
               }
             />
           ) : (
-            <Button variant="ghost" size="sm" onClick={handleAddFavorite}>
-              <Star className="w-5 h-5 text-gray-500" />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSave}
+              className="hover:animate-pulse"
+            >
+              <Bookmark className="w-7 h-7 text-gray-400" />
             </Button>
           )}
         </div>

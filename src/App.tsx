@@ -1,26 +1,26 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoadingComponent from './components/common/loading-component';
 
 import PublicRoute from './routes/public-routes';
-import Login from './pages/login';
 import PrivateRoute from './routes/private-routes';
-import MyImages from './pages/my-images';
-import ImageDetails from './pages/image-details';
+import Loading from './components/common/loading';
 
-const Home = lazy(() => import('./pages/home'));
+const HomePage = lazy(() => import('./pages/home'));
+const ImagesDetailsPage = lazy(() => import('./pages/image-details'));
+const LoginPage = lazy(() => import('./pages/login'));
+const MyImagesPage = lazy(() => import('./pages/my-images'));
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<LoadingComponent />}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           {/* Public routes */}
           <Route
             path="/login"
             element={
               <PublicRoute>
-                <Login />
+                <LoginPage />
               </PublicRoute>
             }
           />
@@ -29,7 +29,7 @@ function App() {
             path="/"
             element={
               <PrivateRoute>
-                <Home />
+                <HomePage />
               </PrivateRoute>
             }
           />
@@ -37,7 +37,7 @@ function App() {
             path="/my-images"
             element={
               <PrivateRoute>
-                <MyImages />
+                <MyImagesPage />
               </PrivateRoute>
             }
           />
@@ -45,7 +45,7 @@ function App() {
             path="/images/:id"
             element={
               <PrivateRoute>
-                <ImageDetails />
+                <ImagesDetailsPage />
               </PrivateRoute>
             }
           />
@@ -53,6 +53,6 @@ function App() {
       </Suspense>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

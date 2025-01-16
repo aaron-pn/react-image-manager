@@ -1,10 +1,5 @@
+import { SavedImage } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface SavedImage {
-  id: string;
-  title: string;
-  image: string;
-}
 
 interface SavedImagesState {
   saved: SavedImage[];
@@ -20,11 +15,11 @@ const savedImagesSlice = createSlice({
   reducers: {
     saveImage: (state, action: PayloadAction<SavedImage>) => {
       if (!state.saved.some((img) => img.id === action.payload.id)) {
-        state.saved.push(action.payload); // Agregar imagen si no está ya guardada
+        state.saved.push(action.payload);
       }
     },
     removeImage: (state, action: PayloadAction<string>) => {
-      state.saved = state.saved.filter((img) => img.id !== action.payload); // Remover por id
+      state.saved = state.saved.filter((img) => img.id !== action.payload);
     },
   },
 });

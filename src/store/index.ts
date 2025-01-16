@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { api } from './services/api';
 
-import favoritesReducer from './slices/favoriteSlices';
 import savedImagesReducer from './slices/savedSlices';
 import authReducer from './slices/authSlice';
 
@@ -18,10 +17,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const persistConfig = {
-  key: 'favorites',
-  storage,
-};
 const persistSavedConfig = {
   key: 'savedImages',
   storage,
@@ -31,10 +26,6 @@ const persistAuthConfig = {
   storage,
 };
 
-const persistedFavoritesReducer = persistReducer(
-  persistConfig,
-  favoritesReducer
-);
 const persistedSavedImagesReducer = persistReducer(
   persistSavedConfig,
   savedImagesReducer
@@ -44,7 +35,6 @@ const persistedAuthReducer = persistReducer(persistAuthConfig, authReducer);
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    favorites: persistedFavoritesReducer,
     savedImages: persistedSavedImagesReducer,
     auth: persistedAuthReducer,
   },

@@ -1,16 +1,12 @@
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import AppSidebar from './app-sidebar';
-import { Toaster } from '../ui/toaster.tsx';
-const Layout = ({ children }: { children: React.ReactNode }) => {
+import { ChildrenProp } from '@/types';
+import Sidebar from './sheet-sidebar';
+
+const Layout: React.FC<ChildrenProp> = ({ children }) => {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main className="p-2 md:p-8 overflow-x-hidden ">
-        <SidebarTrigger />
-        {children}
-        <Toaster />
-      </main>
-    </SidebarProvider>
+    <main className="p-2 overflow-x-hidden">
+      <Sidebar />
+      {children}
+    </main>
   );
 };
 

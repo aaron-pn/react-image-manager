@@ -6,3 +6,13 @@ export type Images = {
   url: string;
   width: string;
 };
+
+export interface SavedImage {
+  id: string;
+  title: string;
+  image: string;
+}
+
+export interface ChildrenProp {
+  children: JSX.Element;
+}

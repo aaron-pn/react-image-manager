@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const URL_BASE = 'https://picsum.photos/';
+import { URL_BASE } from '@/utils/contansts';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -15,12 +14,12 @@ export const api = createApi({
       merge: (currentCache, newItems) => {
         currentCache.push(...newItems);
       },
-      forceRefetch: ({ currentArg, previousArg }) =>
-        currentArg?.page !== previousArg?.page,
+      forceRefetch: ({ currentArg, previousArg }) => {
+        return currentArg?.page !== previousArg?.page;
+      },
     }),
     getPhotoId: builder.query({
       query: (id) => {
-        console.log({ id });
         return `id/${id}/info`;
       },
     }),

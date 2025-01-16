@@ -14,17 +14,15 @@ interface AlertDialogProps {
   title: string;
   description: string;
   onConfirm: () => void;
-  confirmLabel?: string;
-  cancelLabel?: string;
   trigger: React.ReactNode;
 }
 
-const AlertDialogComponent = ({
+const AlertDialogComponent: React.FC<AlertDialogProps> = ({
   title,
   description,
   onConfirm,
   trigger,
-}: AlertDialogProps) => {
+}) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
