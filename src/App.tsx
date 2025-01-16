@@ -2,9 +2,9 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoadingComponent from './components/common/loading-component';
 
-import PublicRoute from './routes/PublicRoutes';
+import PublicRoute from './routes/public-routes';
 import Login from './pages/login';
-import PrivateRoute from './routes/PrivateRoutes';
+import PrivateRoute from './routes/private-routes';
 import MyImages from './pages/my-images';
 import ImageDetails from './pages/image-details';
 

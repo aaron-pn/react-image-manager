@@ -9,7 +9,14 @@ export const api = createApi({
   }),
   endpoints: (builder) => ({
     getPhotos: builder.query({
-      query: () => 'v2/list',
+      query: ({ page = 1, limit = 10 }) =>
+        `v2/list?page=${page}&limit=${limit}`,
+      serializeQueryArgs: ({ endpointName }) => endpointName,
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems);
+      },
+      forceRefetch: ({ currentArg, previousArg }) =>
+        currentArg?.page !== previousArg?.page,
     }),
     getPhotoId: builder.query({
       query: (id) => {

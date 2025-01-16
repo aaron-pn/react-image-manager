@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
-import { COOKIE_NAME } from '../utils/contansts';
+import { COOKIE_AUTH } from '../utils/contansts';
 import Layout from '@/components/common/layout';
 
 interface PrivateRouteProps {
@@ -9,8 +9,8 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const [cookies] = useCookies([COOKIE_NAME]);
-  return cookies[COOKIE_NAME] ? (
+  const [cookies] = useCookies([COOKIE_AUTH]);
+  return cookies[COOKIE_AUTH] ? (
     <Layout> {children}</Layout>
   ) : (
     <Navigate to="/login" />

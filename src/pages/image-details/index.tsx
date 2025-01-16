@@ -1,21 +1,15 @@
-import AlertDialogComponent from '@/components/custom/alertDialog';
+import AlertDialogComponent from '@/components/custom/alert-dialog-component';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { RootState } from '@/store';
 import { useGetPhotoIdQuery } from '@/store/services/api';
-import { removeImage, saveImage } from '@/store/services/savedSlices';
+import { removeImage, saveImage } from '@/store/slices/savedSlices';
+import { imageDownload } from '@/utils/funtions';
 import { Bookmark } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const downloadImage = (url: string) => {
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'image.png';
-  link.click();
-};
-
-const ImageDetails = () => {
+const ImageDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -92,17 +86,15 @@ const ImageDetails = () => {
       </div>
       <div>
         <Button
-          onClick={() => {
-            downloadImage(download_url);
-          }}
+          onClick={() => imageDownload(download_url)}
           variant="link"
           className="p-2"
         >
-          Download
+          Descargar
         </Button>
       </div>
     </div>
   );
 };
 
-export default ImageDetails;
+export default ImageDetailsPage;

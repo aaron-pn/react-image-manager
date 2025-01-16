@@ -9,8 +9,9 @@ import {
 } from '@/components/ui/sidebar';
 import { Home, Image, LogOut } from 'lucide-react';
 import { useCookies } from 'react-cookie';
-import { COOKIE_NAME } from '../../utils/contansts';
+import { COOKIE_AUTH } from '../../utils/contansts';
 import { Button } from '../ui/button';
+import AlertDialogComponent from '../custom/alert-dialog-component';
 
 export const MENU = [
   {
@@ -26,10 +27,10 @@ export const MENU = [
 ];
 
 const AppSidebar = () => {
-  const [_, setDelete] = useCookies([COOKIE_NAME]);
+  const [_, setDelete] = useCookies([COOKIE_AUTH]);
 
   const onLogOut = () => {
-    setDelete(COOKIE_NAME, '');
+    setDelete(COOKIE_AUTH, '');
   };
 
   return (
@@ -50,9 +51,16 @@ const AppSidebar = () => {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>
-        <Button onClick={onLogOut}>
-          <LogOut />
-        </Button>
+        <AlertDialogComponent
+          title="¿Cerrar cessión?"
+          description={`¿Estás seguro de que deseas cerrar sesión?`}
+          onConfirm={onLogOut}
+          trigger={
+            <Button>
+              <LogOut />
+            </Button>
+          }
+        />
       </SidebarFooter>
     </Sidebar>
   );

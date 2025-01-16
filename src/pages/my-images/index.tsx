@@ -1,4 +1,4 @@
-import CardComponent from '@/components/custom/cardComponent';
+import CardComponent from '@/components/custom/card-component';
 import { RootState } from '@/store';
 import { useSelector } from 'react-redux';
 
