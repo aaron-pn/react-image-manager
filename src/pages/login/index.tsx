@@ -2,7 +2,7 @@ import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { loginSchema } from '../../utils/validations';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { COOKIE_AUTH } from '../../utils/contansts';
+import { COOKIE_AUTH } from '../../utils/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { Input } from '@/components/ui/input';
 import {

@@ -4,12 +4,17 @@ import { Home, Image, LogOut, MenuIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Separator } from '@radix-ui/react-separator';
 import AlertDialogComponent from '../custom/alert-dialog-component';
-import { COOKIE_AUTH } from '@/utils/contansts';
+import { COOKIE_AUTH } from '@/utils/constants';
 import { useCookies } from 'react-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@/store/slices/authSlice';
 import { RootState } from '@/store';
 import { useState } from 'react';
+
+const menuItems = [
+  { title: 'Inicio', icon: Home, url: '/' },
+  { title: 'Mis Imágenes', icon: Image, url: '/my-images' },
+];
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -17,10 +22,6 @@ const Sidebar = () => {
   const [_, setDelete] = useCookies([COOKIE_AUTH]);
   const dispatch = useDispatch();
   const { name } = useSelector((state: RootState) => state.auth.user);
-  const menuItems = [
-    { title: 'Inicio', icon: Home, url: '/' },
-    { title: 'Mis Imágenes', icon: Image, url: '/my-images' },
-  ];
 
   const handleLogOut = () => {
     setDelete(COOKIE_AUTH, '');
