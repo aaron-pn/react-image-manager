@@ -39,6 +39,8 @@ Este proyecto es una aplicación diseñada para proporcionar un espacio donde lo
 4. Ejecuta el siguiente comando para iniciar el servidor de desarrollo: `npm run dev`.
 5. Abre tu navegador y navega a `http://localhost:3000` para ver el proyecto en acción.
 
+## Puedes ver el proyecto en acción en este enlace: https://images-gallery-omega.vercel.app/login
+
 # 💡 Posibles Mejoras
 
 Este proyecto puede beneficiarse de las siguientes mejoras en su estructura y funcionalidad:
