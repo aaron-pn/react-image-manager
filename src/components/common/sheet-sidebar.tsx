@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [_, setDelete] = useCookies([COOKIE_AUTH]);
   const dispatch = useDispatch();
   const { name } = useSelector((state: RootState) => state.auth.user);

@@ -36,7 +36,7 @@ const HomePage = () => {
 
     return () => {
       if (currentLoader) {
-        observer.disconnect();
+        observer.unobserve(currentLoader);
       }
     };
   }, [loaderRef, hasMore, isFetching]);
@@ -45,7 +45,7 @@ const HomePage = () => {
     return (
       <InfoComponent
         labelButton="Volver"
-        title="Parece que hubo un error al cargar la imagen"
+        title="Parece que hubo un error al cargar las imagenes"
         colorTitle="text-red-600"
       />
     );

@@ -17,6 +17,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useDispatch } from 'react-redux';
 import { login as loginDispatch } from '@/store/slices/authSlice';
+import { PasswordInput } from '@/components/ui/input-password';
+import { useToast } from '@/hooks/use-toast';
 
 interface LoginValues {
   user: string;
@@ -27,8 +29,8 @@ const uuid = uuidv4();
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-
-  const form = useForm<LoginValues>({
+  const { toast } = useToast();
+  const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
     defaultValues: {
@@ -43,6 +45,11 @@ const LoginPage = () => {
     const { user } = data;
     dispatch(loginDispatch({ name: user }));
     setCookie(COOKIE_AUTH, uuid);
+    toast({
+      title: 'Sesión iniciada',
+      description: 'Has iniciado sesión con éxito.',
+      variant: 'success',
+    });
   };
 
   return (
@@ -80,11 +87,7 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Contraseña"
-                        type="password"
-                        {...field}
-                      />
+                      <PasswordInput placeholder="Contraseña" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

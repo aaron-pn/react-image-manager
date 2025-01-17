@@ -9,6 +9,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/utils/*": ["./src/utils/*"]
-    }
-  }
+    },
+    "types": ["cypress"]
+  },
+  "include": ["cypress/**/*.ts"]
 }
